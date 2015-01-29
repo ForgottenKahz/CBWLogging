@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+  <title>Temperature</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap.min.css" rel="stylesheet" media="screen">
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("visualization", "1", {packages:["gauge"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Temp', {{ temp }}]
+        ]);
+
+        var options = {
+          width: 400, height: 120,
+          redFrom: 90, redTo: 100,
+          yellowFrom:75, yellowTo: 90,
+          minorTicks: 5
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+
+      }
+    </script>
+  </head>
+  <body>
+    <h1>{{ description }}</h1>
+    <div id="chart_div" style="width: 400px; height: 120px;"></div>
+  </body>
+</html>
